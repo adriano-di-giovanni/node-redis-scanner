@@ -1,5 +1,7 @@
 # node-redis-scanner
 
+A Redis scanner for Node.js.
+
 ## Installation
 
 ```
@@ -14,6 +16,7 @@ var
 
 var
 	// see https://github.com/mranney/node_redis#rediscreateclient
+	// for RedisScanner arguments
 	scanner = new RedisScanner();
 
 scanner
