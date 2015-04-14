@@ -16,7 +16,8 @@ module.exports = function () {
       expect(scanner._client).to.be.instanceof(redis.RedisClient);
 
       scanner
-        .onMatch('*', function (match, client, done) {
+        .onMatch('*', function (pattern, match, client, done) {
+          expect(pattern).to.equal('*');
           expect(match).to.be.a('string');
           expect(client).to.be.instanceof(redis.RedisClient);
           expect(done).to.be.a('function');

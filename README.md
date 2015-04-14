@@ -8,7 +8,7 @@ A Redis scanner for Node.js.
 npm install node-redis-scanner --save
 ```
 
-Usage
+## Usage
 
 ```javascript
 var
@@ -19,14 +19,21 @@ var
 	// for RedisScanner arguments
 	scanner = new RedisScanner();
 
+var
+	counterByPattern = {};
+
 scanner
-	.onMatch('path:to:key:*', function (match, client, done) {
+	.onMatch('path:to:key:*', function (pattern, match, client, done) {
+		if ( ! counterByPattern[pattern]) {
+			counterByPattern[pattern] = 0;
+		}
+		counterByPattern[pattern] += 1;
+		done();
+	})
+	.onMatch('path:to:another-key:*', function (pattern, match, client, done) {
 		client.del(match, function (error) {
 			done(error);
 		});
-	})
-	.onMatch('path:to:another-key:*', function (match, client, done) {
-		// your code here
 	})
 	.onError(function (error) {
 		// your code here
